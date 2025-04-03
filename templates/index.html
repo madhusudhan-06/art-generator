@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='art-generator.png') }}" type="image/png">
+    <title>Text-to-Image Generation</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+
+        .image-result {
+            margin-top: 20px;
+        }
+
+        .image-result img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .url-container {
+            margin-top: 20px;
+        }
+
+        .url-container a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .url-container a:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+        .prompt-used {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        .error {
+            color: red;
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Generate Your AI Art</h1>
+        <form method="POST">
+            <div class="input-group">
+                <label for="text">Enter a description for the image:</label>
+                <input type="text" id="text" name="text" placeholder="E.g., a beautiful sunset over the mountains"
+                    required>
+            </div>
+            <input type="submit" value="Generate Image">
+        </form>
+        {% if image_path %}
+        <div class="image-result">
+            <img src="{{ image_path }}" alt="Generated Image">
+        </div>
+        <div class="url-container">
+            <a href="{{ image_path }}" target="_blank">View the image here</a>
+        </div>
+        {% endif %}
+        {% if prompt %}
+        <p class="prompt-used">Prompt used: "{{ prompt }}"</p>
+        {% endif %}
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+    </div>
+</body>
+
+</html>
